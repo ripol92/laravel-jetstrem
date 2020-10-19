@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('subscribers.create'));
 });
 
-//Route::post('add-subscriber', [])
+$subscriberParams = [
+  'prefix' => 'subscribers',
+  'middleware' => ['auth:sanctum', 'verified'],
+];
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia\Inertia::render('Dashboard');
-})->name('dashboard');
+Route::group($subscriberParams, function() {
+    Route::get('create', [SubscriberController::class, 'create'])->name('subscribers.create'); // create form
+    Route::post('store', [SubscriberController::class, 'store'])->name('subscribers.store');
+});

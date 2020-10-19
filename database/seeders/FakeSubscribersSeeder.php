@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
-class SubscribersSeeder extends Seeder
+class FakeSubscribersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
